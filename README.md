@@ -1,4 +1,4 @@
-# Full Throttle
+# Full Throttle :motorcycle:
 
 My stated goal is as follows: **Graduate myself from a lowly web developer to a bona fide software engineer.**
 
