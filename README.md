@@ -1,10 +1,16 @@
 # Full Throttle
 
-My stated goal is as follows: Graduate myself from a lowly web developer to a bona fide software engineer.
+My stated goal is as follows: **Graduate myself from a lowly web developer to a bona fide software engineer.**
 
-**This is not set in stone and will grow and change as I do.**
+&nbsp;
+
+**_NOTE: This is not set in stone and will grow and change as I do._**
+
+&nbsp;
 
 I may repurpose my domain [Devcelerate](https://devcelerate.io) to collect my own cheat sheets and other resources under one roof.
+
+&nbsp;
 
 This will require extensive learning/practice in:
 * Data Structures & Algorithms
