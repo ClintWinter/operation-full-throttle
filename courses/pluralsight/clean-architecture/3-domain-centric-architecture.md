@@ -4,7 +4,9 @@ A classic three-layer database-centric architecture has UI, business logic, and 
 
 Now some are putting the domain at the center instead of the database. The database becomes an implementation detail outside of the architecture.
 
-> *"The first concern of the architect is to make sure that the house is usable, it is not to ensure that the house is made of brick."* -Uncle Bob
+> *"The first concern of the architect is to make sure that the house is usable, it is not to ensure that the house is made of brick."*
+>
+> -Uncle Bob
 
 This becomes about what is *essential* vs what is just an implementation detail or ornamentation. The domain is essential. Use cases are essential. But presentation is a detail. Persistence is a detail too.
 
