@@ -79,3 +79,28 @@ One of the reasons is **code is _read_ way more often than it is _written_**.
 
 We have a responsibility to write code that is readable and understandable for our colleagues and our future self. Nobody will likely have the understanding we have while we are building that feature.
 
+## Classic OO definition
+
+Has two traits:
+* Information hiding (implementation hiding)
+* Protection of invariants
+
+Protection of invariants involves making sure invalid states are impossible on classes. This can be done sometimes by checking pre and post conditions (assertions).
+
+## Beyond OO
+
+We can reach beyond OO for some actionable steps.
+
+### Command Query Separation
+
+Your operations should be commands or queries, but not both.
+
+Also known as CQS, which is not CQRS. CQRS is an architectural design pattern.
+
+Commands - have observable side-effects
+
+Queries - returns data
+
+CQS is a principle because it is very possible to not follow it, but even though you can do it, you shouldn't.
+
+### Postel's Law
