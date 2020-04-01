@@ -91,6 +91,9 @@ Protection of invariants involves making sure invalid states are impossible on c
 
 We can reach beyond OO for some actionable steps.
 
+* CQS (Command Query Separation)
+* Postel's Law
+
 ### Command Query Separation
 
 Your operations should be commands or queries, but not both.
@@ -101,6 +104,4 @@ Commands - have observable side-effects
 
 Queries - returns data
 
-CQS is a principle because it is very possible to not follow it, but even though you can do it, you shouldn't.
-
-### Postel's Law
+CQS is a principle because it is very possible to not follow it. Even though you can get away with it, you shouldn't.
