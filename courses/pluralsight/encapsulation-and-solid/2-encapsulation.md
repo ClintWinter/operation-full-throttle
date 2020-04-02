@@ -105,3 +105,161 @@ Commands - have observable side-effects
 Queries - returns data
 
 CQS is a principle because it is very possible to not follow it. Even though you can get away with it, you shouldn't.
+
+## Commands & Queries
+
+### Commands
+
+Mutates state
+
+Examples:
+``` C#
+void Save(Order order);
+
+void Send(T message);
+
+void Associate(IFoo foo, Bar bar);
+```
+
+What do they all have in common? *They return `void`*.
+
+You don't call a method that returns void unless you expect it to have a side-effect. That makes it easy to recognize commands.
+
+### Queries
+
+* Do not mutate
+* Has an observable state
+* Idempotent - the state won't change whether you invoke once or `n` times
+* Safe to invoke
+
+Examples:
+``` C#
+Order[] GetOrders(int userId);
+
+IFoo Map(Bar bar);
+
+T Create();
+```
+
+What do these all have in common? *They return **something***.
+
+If you adhere to CQS, you know that, if a method returns something, it must be a query.
+
+## Queries
+
+Let's look at the early example of our `FileStore` class fully expanded:
+
+``` C#
+public class FileStore
+{
+    public string WorkingDirectory { get; set; }
+
+    public string Save(int id, string message)
+    {
+        var path = Path.Combine(this.WorkingDirectory, id + ".txt");
+        File.WriteAllText(path, message);
+        return path;
+    }
+
+    public event EventHandler<MessageEventArgs> MessageRead;
+
+    public void Read(int id)
+    {
+        var path = Path.Combine(this.WorkingDirectory, id + ".txt");
+        var msg = File.ReadAllText(path);
+        this.MessageRead(this, nhew MessageEventArgs { Message = msg });
+    }
+}
+```
+
+The code above sucks because we can't easily look at this and tell which are commands and which are queries.
+
+The `Read` method should be a query, so let's make it one:
+
+``` C#
+public string Read(int id)
+{
+    var path = Path.Combine(this.WorkingDirectory, id + ".txt");
+    var msg = File.ReadAllText(path);
+    this.MessageRead(this, nhew MessageEventArgs { Message = msg });
+    return msg;
+}
+```
+
+But is it a side-effect free query? This method raises an event, and an event is a side-effect. So let's remove that:
+
+``` C#
+public string Read(int id)
+{
+    var path = Path.Combine(this.WorkingDirectory, id + ".txt");
+    var msg = File.ReadAllText(path);
+    return msg;
+}
+```
+
+This means we can get rid of the event from the class completely.
+
+## Commands
+
+Here is our partially cleaned up class:
+
+``` C#
+public class FileStore
+{
+    public string WorkingDirectory { get; set; }
+
+    public string Save(int id, string message)
+    {
+        var path = Path.Combine(this.WorkingDirectory, id + ".txt");
+        File.WriteAllText(path, message);
+        return path;
+    }
+
+    public string Read(int id)
+    {
+        var path = Path.Combine(this.WorkingDirectory, id + ".txt");
+        var msg = File.ReadAllText(path);
+        return msg;
+    }
+}
+```
+
+Where is the command in this class? Some would say `Save`, but it returns `string`. It doesn't adhere to the CQS principle. If we want to reduce the amount of code we need to read through all the time, we need to turn it into a proper command. Otherwise, what this method does is not clear based on looking at it, and we must read it's code so we can be sure it's what we want.
+
+We can't simply remove the returning of the `path` variable and call it a day because it may be needed. Instead we should split the two things `Save` is doing into two methods.
+
+Then we can clean out the duplicate code that our new method `GetFileName` overlaps with.
+
+``` C#
+public class FileStore
+{
+    public string WorkingDirectory { get; set; }
+
+    public void Save(int id, string message)
+    {
+        File.WriteAllText(this.GetFileName(id), message);
+    }
+
+    public string Read(int id)
+    {
+        return File.ReadAllText(this.GetFileName(id));
+    }
+
+    public string GetFileName(int id)
+    {
+        return Path.Combine(this.WorkingDirectory, id + ".txt");
+    }
+}
+```
+
+It is okay to query from a command, like we are now doing in the `Save` method with `GetFileName` because the query does not have a side-effect.
+
+Now we can look at our method signatures to determine what the method does (command vs query). As we use this in our codebase, we will learn to trust the codebase more and find it unnecessary to read through all of the implementation code.
+
+## Postel's Law
+
+The robustness principle
+
+Originally stated in the context of designing network protocols.
+
+> Be conservative in what you send, but be liberal in what you accept.
