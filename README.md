@@ -24,6 +24,5 @@ Resources:
 * [Coding Interview University](https://github.com/jwasham/coding-interview-university)
 * [PluralSignt](https://www.pluralsight.com/)
 * [Udemy](https://www.udemy.com/)
-* [TopCoder](https://www.topcoder.com/)
 * [LeetCode - Interview Questions](https://leetcode.com/interview/)
 * TBD
