@@ -109,7 +109,7 @@ I'm totally lost every time they start talking about substitutions and reduction
 λy.y
 ```
 
-like wtf does that even mean? There's no explanation on what that syntax means. I need to find a different source.
+Like what does that even mean? There's no explanation on what that syntax means. I need to find a different source.
 
 Here's something that actually helps when thinking about these chained functions. When looking at something like `λx.λy.y` it can help to think about this as a *single* function taking two arguments instead (like reverse currying). So this takes an `x` and a `y` and just returns `y`.
 
@@ -171,7 +171,7 @@ is the same as (in JavaScript)
 
 If we used "FALSE"("ONE")("ZERO") instead of "TRUE", the reduction would reduce to "ZERO" instead.
 
-When I first watched [this video](https://www.youtube.com/watch?v=FITJMJjASUs), I was completely lost by the time they got to ~9 minutes in with the TRUE/ONE/ZERO dicussion. Now I understand it. This is amazing. I have not had this feeling in a long time. Like since I first started learning web dev when I wanted to quit. Now here I am forcing myself through this and it is paying off! Yeah mother fucker. I know what I'm capable of. I know if I apply myself and don't quit I can do anything. Make yourself do it! Don't be a pussy!
+When I first watched [this video](https://www.youtube.com/watch?v=FITJMJjASUs), I was completely lost by the time they got to ~9 minutes in with the TRUE/ONE/ZERO dicussion. Now I understand it. This is amazing. I have not had this feeling in a long time. Like since I first started learning web dev when I wanted to quit. Now here I am forcing myself through this and it is paying off!
 
 ### Order of Operations
 
@@ -209,7 +209,7 @@ Now without the parentheses?
 λy.y // the result is just the λx function's original body
 ```
 
-Watching the video to confirm... boom! exactly right! yeah bitch.
+Watching the video to confirm... boom! exactly right!
 
 ## Church Encoding
 
